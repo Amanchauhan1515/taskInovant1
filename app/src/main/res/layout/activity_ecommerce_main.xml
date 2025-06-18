@@ -1,86 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="match_parent"
+
+    <!-- Top Toolbar -->
+    <LinearLayout
+        android:id="@+id/topBar"
+        android:layout_width="0dp"
         android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent">
+
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_gravity="center"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/backbtn"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:src="@drawable/backbtn" />
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_weight="1"
             android:text="Once Collection Weekly"
             android:textColor="@color/black"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="TextSizeCheck" />
+            android:gravity="center" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/heart64"
-            android:layout_marginEnd="6dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView3"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginEnd="6dp" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/share64"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView4"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="6dp"/>
+            android:layout_marginEnd="6dp" />
 
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:src="@drawable/bag64"
-            android:backgroundTint="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="16dp"/>
+            android:backgroundTint="@color/black" />
+    </LinearLayout>
 
-        <!-- Inner contents stay the same -->
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <!-- Scrollable Product Content -->
     <ScrollView
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttomlinearlayout"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topBar"
+        app:layout_constraintBottom_toTopOf="@id/buttomlinearlayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
-
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -93,22 +79,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/product_img" />
+                android:scaleType="fitCenter" />
 
+            <!-- Product Title & Price -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/productNameTextView"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="sans-serif"
-                    android:paddingStart="16dp"
-                    android:paddingTop="16dp"
-                    android:text="ANESTHESIA"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -117,31 +103,29 @@
                     android:id="@+id/productPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingTop="16dp"
-                    android:paddingEnd="16dp"
-                    android:text="3.50 KWD"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
+            <!-- Description -->
             <TextView
+                android:id="@+id/subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="7dp"
                 android:paddingStart="16dp"
-                android:text="Once Collection Weekly"
+                android:paddingTop="8dp"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/skuTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="7dp"
                 android:paddingStart="16dp"
-                android:text="SKU: anesthesia-once-collection-weekly"
                 android:textSize="12sp" />
 
+            <!-- Color Label -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -150,6 +134,7 @@
                 android:text="Color:"
                 android:textSize="16sp" />
 
+            <!-- Color Options -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -162,60 +147,58 @@
                     android:orientation="horizontal" />
             </HorizontalScrollView>
 
-
+            <!-- Payment Info Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                app:cardBackgroundColor="@android:color/white"
                 app:cardCornerRadius="12dp"
-                app:cardElevation="2dp">
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@android:color/white">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:padding="10dp"
-                    android:weightSum="1">
+                    android:gravity="center_vertical"
+                    android:padding="10dp">
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/paymentInfo1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="or 4 interest-free payments"
                             android:textColor="#000000"
                             android:textSize="13sp"
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/paymentInfo"
+                            android:id="@+id/paymentInfo2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="#000000"
                             android:textSize="13sp" />
-
                     </LinearLayout>
 
                     <ImageView
+                        android:id="@+id/tabby_logo"
                         android:layout_width="60dp"
                         android:layout_height="30dp"
-                        android:layout_gravity="center"
-                        android:scaleType="fitCenter"
-                        android:src="@drawable/tabby_logo" />
+                        android:scaleType="fitCenter" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- Quantity Controls -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
                 android:paddingStart="16dp"
+                android:paddingTop="8dp"
                 android:text="Quantity" />
 
             <LinearLayout
@@ -228,9 +211,7 @@
                     android:id="@+id/btndecrease"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp"
                     android:background="@color/grey"
-                    android:fontFamily="sans-serif"
                     android:text="-"
                     tools:ignore="TouchTargetSizeCheck" />
 
@@ -238,9 +219,8 @@
                     android:id="@+id/textQuantity"
                     android:layout_width="55dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/boarder_text"
                     android:gravity="center"
+                    android:background="@drawable/boarder_text"
                     android:text="1"
                     android:textStyle="bold"
                     android:textColor="@color/black" />
@@ -249,23 +229,19 @@
                     android:id="@+id/btnincrease"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp"
                     android:background="@color/black"
-                    android:fontFamily="sans-serif"
                     android:text="+"
                     android:textColor="@color/white"
                     tools:ignore="TouchTargetSizeCheck" />
-
-
             </LinearLayout>
 
-            <!-- Product Info Header with Arrow -->
+            <!-- Product Info Expand -->
             <LinearLayout
                 android:id="@+id/productInfoHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:gravity="center_vertical"
                 android:padding="16dp">
 
                 <TextView
@@ -280,11 +256,10 @@
                     android:id="@+id/arrowIcon"
                     android:layout_width="14dp"
                     android:layout_height="14dp"
-                    android:contentDescription="Expand/Collapse"
                     android:rotation="0"
-                    android:src="@drawable/expandbtn" />
+                    android:src="@drawable/expandbtn"
+                    android:contentDescription="Expand/Collapse" />
             </LinearLayout>
-
 
             <TextView
                 android:id="@+id/productInfoContent"
@@ -292,47 +267,39 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="16dp"
                 android:paddingBottom="16dp"
-                android:text="@string/product_description"
-                android:textSize="12sp"
+                android:textSize="14sp"
                 android:visibility="gone" />
-
-
         </LinearLayout>
-
-
     </ScrollView>
 
-
+    <!-- Bottom Buttons -->
     <LinearLayout
         android:id="@+id/buttomlinearlayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/white">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:background="@color/black"
             android:text="Add to bag"
-            android:textStyle="bold"
             android:textColor="@color/white"
-            android:background="@color/black" />
+            android:textStyle="bold" />
+
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Share"
-            android:textStyle="bold"
-            android:textColor="@color/black"
             android:layout_marginTop="12dp"
-            android:background="@drawable/boarder_button"/>
-
-
+            android:background="@drawable/boarder_button"
+            android:text="Share"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

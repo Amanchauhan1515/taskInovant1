@@ -3,48 +3,52 @@ package com.example.taskinovant
 import android.os.Bundle
 import android.text.Html
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.ComponentActivity
-
 import androidx.activity.viewModels
-
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 
 class MainActivity : ComponentActivity() {
+
     private val viewModel: ProductViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ecommerce_main)
 
+        // UI references
         val swatchesLayout = findViewById<LinearLayout>(R.id.colorSwatches)
-        val paymentText = "<b>0.88 KWD</b> <u>Learn More</u>"
-        findViewById<TextView>(R.id.paymentInfo).text = Html.fromHtml(paymentText, Html.FROM_HTML_MODE_LEGACY)
-        val productInfoHeader = findViewById<LinearLayout>(R.id.productInfoHeader)
-        val arrowIcon = findViewById<ImageView>(R.id.arrowIcon)
+        val productName = findViewById<TextView>(R.id.productNameTextView)
+        val productPrice = findViewById<TextView>(R.id.productPrice)
+        val productSKU = findViewById<TextView>(R.id.skuTextView)
         val productInfoContent = findViewById<TextView>(R.id.productInfoContent)
-        val btnincrease= findViewById<Button>(R.id.btnincrease)
-        val btndecraese=findViewById<Button>(R.id.btndecrease)
-        val textQuantity=findViewById<TextView>(R.id.textQuantity)
+        val paymentInfo2 = findViewById<TextView>(R.id.paymentInfo2)
+        val paymentInfo1=findViewById<TextView>(R.id.paymentInfo1)
+        val subtitle=findViewById<TextView>(R.id.subtitle)
+        val mainImage = findViewById<ImageView>(R.id.EyesImage)
+        val tabby_logo =findViewById<ImageView>(R.id.tabby_logo)
 
-        var quantity =1
-        btnincrease.setOnClickListener {
+        val arrowIcon = findViewById<ImageView>(R.id.arrowIcon)
+        val productInfoHeader = findViewById<LinearLayout>(R.id.productInfoHeader)
+
+        val btnIncrease = findViewById<Button>(R.id.btnincrease)
+        val btnDecrease = findViewById<Button>(R.id.btndecrease)
+        val textQuantity = findViewById<TextView>(R.id.textQuantity)
+
+        var quantity = 1
+        btnIncrease.setOnClickListener {
             quantity++
-            textQuantity.text=quantity.toString()
+            textQuantity.text = quantity.toString()
         }
-        btndecraese.setOnClickListener{
-            if (quantity>1){
+        btnDecrease.setOnClickListener {
+            if (quantity > 1) {
                 quantity--
-                textQuantity.text=quantity.toString()
+                textQuantity.text = quantity.toString()
             }
         }
 
-        val viewModel = ViewModelProvider(this)[ProductViewModel::class.java]
-
+        // Product Info expand/collapse
         viewModel.isProductInfoExpanded.observe(this) { expanded ->
             productInfoContent.visibility = if (expanded) View.VISIBLE else View.GONE
             arrowIcon.animate().rotation(if (expanded) 180f else 0f).setDuration(200).start()
@@ -54,9 +58,17 @@ class MainActivity : ComponentActivity() {
             viewModel.toggleProductInfo()
         }
 
-
-
+        // Observe product and update UI
         viewModel.product.observe(this) { product ->
+            productName.text = product.name
+            productPrice.text = product.price
+            subtitle.text=product.subtitle
+            productSKU.text = product.sku
+            productInfoContent.text = product.description
+            paymentInfo1.text = Html.fromHtml("<b>${product.paymentInfo1}</b>", Html.FROM_HTML_MODE_LEGACY)
+            paymentInfo2.text = Html.fromHtml("<b>${product.paymentInfo2}</b> <u>Learn More</u>", Html.FROM_HTML_MODE_LEGACY)
+            mainImage.setImageResource(product.imageResId)
+            tabby_logo.setImageResource(product.tabby_logo)
             displaySwatches(swatchesLayout, product.swatches)
         }
     }
@@ -73,7 +85,6 @@ class MainActivity : ComponentActivity() {
                 }
                 setImageResource(resId)
                 scaleType = ImageView.ScaleType.CENTER_CROP
-
                 background = ContextCompat.getDrawable(context, R.drawable.swatch_border)
                 clipToOutline = true
             }
